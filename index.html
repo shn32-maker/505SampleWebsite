@@ -1,47 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Resume</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>My Game</title>
+    <style>
+        body {
+            background-color: lightgray;
+        }
+        #box {
+            width: 500px;
+            padding: 20px;
+            background-color: white;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            background-color: gray;
+            color: white;
+        }
+        #pic {
+            width: 100%;
+            height: 250px;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<header>
-			<h1>school lab project </h1>
-			<p>Web Developer</p>
-		</header>
-		<section>
-			<h2>Summary</h2>
-			<p>A highly motivated web developer with 5+ years of experience creating dynamic and responsive web applications. Strong skills in HTML, CSS, and JavaScript, with a passion for creating visually appealing and user-friendly interfaces. Committed to staying up-to-date with the latest trends and technologies in the industry.</p>
-		</section>
-		<section>
-			<h2>Skills</h2>
-			<ul>
-				<li>HTML</li>
-				<li>CSS</li>
-				<li>JavaScript</li>
-				<li>jQuery</li>
-				<li>Bootstrap</li>
-				<li>React</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Experience</h2>
-			<h3>Web Developer, XYZ Company</h3>
-			<p>Developed and maintained multiple company websites using HTML, CSS, and JavaScript. Collaborated with designers and project managers to create visually appealing and user-friendly interfaces. Conducted regular code reviews to ensure high-quality and efficient code. </p>
-			<h3>Web Developer, ABC Agency</h3>
-			<p>Designed and implemented custom WordPress themes and plugins. Worked closely with clients to gather requirements and provide technical support. Conducted regular testing and debugging to ensure optimal performance.</p>
-		</section>
-		<section>
-			<h2>Education</h2>
-			<h3>Bachelor of Science in Computer Science</h3>
-			<p>University of ABC, Graduated May 20XX</p>
-		</section>
-		<section id="projects">
-			<h2>Projects</h2>
-			<p>Some text about your projects...</p>
-		</section>
-	</div>
-</body>
 
+<div id="box">
+    <img id="pic" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.popularmechanics.com%2Fculture%2Fgaming%2Fa31213381%2Frock-paper-scissors-history%2F&psig=AOvVaw1divhTROHjau1wNXwZDkEy&ust=1761021142672000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCNC1r4_5sZADFQAAAAAdAAAAABAE">
+    <p id="text"></p>
+    <div id="buttons"></div>
+</div>
+
+<footer>
+    <p>Last updated: <span id="lastModified"></span></p>
+</footer>
+
+<script>
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+</script>
+
+<script>
+    var current = "start";
+    
+    var story = {
+        start: {text: "A stranger challanges you to rock paper scissors. Choose!", image: "https://www.google.com/imgres?q=rock%20paper%20scissors&imgurl=https%3A%2F%2Fremptongames.com%2Fwp-content%2Fuploads%2F2018%2F02%2Frock-paper-scissor-ft.jpg%3Fw%3D609%26h%3D406&imgrefurl=https%3A%2F%2Fremptongames.com%2F2018%2F02%2F17%2Fcut-crush-and-cover-the-strategies-of-rock-paper-scissors%2F&docid=axnckYV4sIKDcM&tbnid=TkxhAHPHwrSfPM&vet=12ahUKEwiMvd6N-bGQAxXE_8kDHS4GD0UQM3oECFsQAA..i&w=609&h=406&hcb=2&ved=2ahUKEwiMvd6N-bGQAxXE_8kDHS4GD0UQM3oECFsQAA", choices: [{text: "Rock", next: "rock"}, {text: "Paper", next: "paper"}, {text: "Scissors", next: "scissors"}]},
+        rock: {text: "You chose rock. ", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Faustralian.museum%2Flearn%2Fminerals%2Fwhat-are-minerals%2Fminerals-and-rocks%2F&psig=AOvVaw35ZSDwRWKq9DDhR06D-lb2&ust=1761023355643000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCID-uq-BspADFQAAAAAdAAAAABAJ", choices: []},
+        paper: {text: "You chose paper. ", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.com%2FLoose-Paper-24lb-Printed-Double%2Fdp%2FB01MSN42MK&psig=AOvVaw0-P9vo1gKcoIxtGxbpehle&ust=1761023376275000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCLjz1LiBspADFQAAAAAdAAAAABAb", choices: []},
+        scissors: {text: "You chose scissors. ", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fselect.schoolspecialty.com%2Ffiskars-kids-scissors-pointed-tip-5-inches-assorted-colors-372701&psig=AOvVaw0H_BAX_29UtaOoRcs29RFg&ust=1761023403119000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCMjwxcaBspADFQAAAAAdAAAAABAE", choices: []},
+        win1: {text: "You win! Stranger gives you gold coin.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.austincoins.com%2F10-liberty-gold-coin-about-uncirculated%2F%3Fsrsltid%3DAfmBOoqY7uNbc5qyHziWDDnsSy0F-kcu1gxa6tJnf_-9sLSCc3v8L6wO&psig=AOvVaw2GwlSnF6sy-fMxwh5Jnm1_&ust=1761023432702000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCPDNvtSBspADFQAAAAAdAAAAABAE", choices: []},
+        win2: {text: "You win! Stranger gives you silver coin.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.usmoneyreserve.com%2Fshop%2Fbullion%2Fsilver-bullion%2F1-oz-silver-american-eagle-coin%2F&psig=AOvVaw1UHqI9imXNOXxKEupWkeej&ust=1761023454734000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCIiRiN6BspADFQAAAAAdAAAAABAb", choices: []},
+        tie1: {text: "Tie! You shake hands.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcareer.uconn.edu%2Fblog%2F2014%2F11%2F06%2Freal-engineers-shake-hands%2F&psig=AOvVaw0dsE8E4FYja2gTRGrsC3ni&ust=1761023482086000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCIDrs-uBspADFQAAAAAdAAAAABAE", choices: []},
+        tie2: {text: "Tie! You both laugh.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fcartoon-people-laughing&psig=AOvVaw12qvuzZbgb3tOnZ2tUsFg9&ust=1761023499022000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCODfu_SBspADFQAAAAAdAAAAABAE", choices: []},
+        lose1: {text: "You lose! Stranger walks away.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.oprahdaily.com%2Flife%2Fhealth%2Fa31944589%2Fbenefits-of-walking%2F&psig=AOvVaw30ntL52Z31UaBu8z4DNQTT&ust=1761023519644000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCNCM-PyBspADFQAAAAAdAAAAABAE", choices: []},
+        lose2: {text: "You lose! Stranger gives advise.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmartech.org%2Ftalk-human-time-brands-get-real%2F&psig=AOvVaw0AWlHEauc3nc9EDOniz3ti&ust=1761023537615000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCID5h4aCspADFQAAAAAdAAAAABAE", choices: []},
+        lose3: {text: "You lose! Stranger gives bronze coin.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcdncoin.com%2Fproducts%2F2013-3-bronze-an-allegory%3Fsrsltid%3DAfmBOor6Redz4C30cjJ6D5J4w5rdwEz30qHGFDS6VjE4pBKbYRMzvkLJ&psig=AOvVaw3anAzu8I2wG3H1ON1NP2VD&ust=1761023562162000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCPCIm5GCspADFQAAAAAdAAAAABAE", choices: []},
+        lose4: {text: "You lose! Stranger says practice more.", image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbluemoji.io%2Femoji%2Fpointing-and-laughing-in-tears&psig=AOvVaw3j1boDIv1YaeBc2fc5-DYt&ust=1761023586162000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCOC0-JyCspADFQAAAAAdAAAAABAE", choices: []}
+    };
+    
+    //this is the portion to start game function
+    function startGame() {
+        current = "start";
+        updatePage();
+    }
+    
+    function makeClick(next) {
+        return function() {
+            var comp = ["rock", "paper", "scissors"][Math.floor(Math.random() * 3)];
+            story[next].text = "You chose " + next + ". Computer chose " + comp + ". ";
+            
+            if (next === comp) {
+                current = Math.random() < 0.5 ? "tie1" : "tie2";
+            } else if ((next === "rock" && comp === "scissors") || (next === "paper" && comp === "rock") || (next === "scissors" && comp === "paper")) {
+                current = Math.random() < 0.5 ? "win1" : "win2";
+            } else {
+                var endings = ["lose1", "lose2", "lose3", "lose4"];
+                current = endings[Math.floor(Math.random() * 4)];
+            }
+            updatePage();
+        };
+    }
+    
+    //I built this portion to update the function of the page.
+    function updatePage() {
+        var part = story[current];
+        var btns = document.getElementById("buttons");
+        document.getElementById("text").innerHTML = part.text;
+        document.getElementById("pic").src = part.image;
+        btns.innerHTML = "";
+        
+        if (part.choices.length === 0) {
+            endGame();
+        } else {
+            var i = 0;
+            while (i < part.choices.length) {
+                var b = document.createElement("button");
+                b.innerHTML = part.choices[i].text;
+                b.onclick = makeClick(part.choices[i].next);
+                btns.appendChild(b);
+                i = i + 1;
+            }
+        }
+    }
+    
+    // this is the portion to my end game function
+    function endGame() {
+        var btns = document.getElementById("buttons");
+        btns.innerHTML = "";
+        var restart = document.createElement("button");
+        restart.innerHTML = "Play Again";
+        restart.onclick = function() {
+            startGame();
+        };
+        btns.appendChild(restart);
+    }
+    
+    startGame();
+</script>
+
+</body>
 </html>
