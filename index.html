@@ -1,125 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3 - Custom Fonts</title>
     <style>
+        @font-face {
+            font-family: 'Righteous';
+            src: url('https://cdn.jsdelivr.net/npm/@fontsource/righteous@4.5.11/files/righteous-latin-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
         body {
-            background-color: lightgray;
-        }
-        #box {
-            width: 500px;
+            font-family: 'Righteous', cursive;
+            max-width: 800px;
+            margin: 50px auto;
             padding: 20px;
-            background-color: white;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.8;
+            background-color: #f0f0f0;
         }
-        button {
-            padding: 10px;
-            margin: 5px;
-            background-color: gray;
-            color: white;
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
         }
-        #pic {
-            width: 100%;
-            height: 250px;
-            border: 1px solid black;
+        
+        p {
+            font-size: 1.2em;
+            color: #333;
         }
     </style>
 </head>
 <body>
+    <h1>How I provided this custom font</h1>
+    
+    <p>To deliver a custom font into my browser, I used the <strong>@font-face</strong> method in CSS. Here's how it works:</p>
+    
+    <p>step1, I picked a unique font called "Righteous" from a CDN (Content Delivery Network). Instead of using Google Fonts, I used jsDelivr which hosts font files.</p>
+    
+    <p>step2, I added a @font-face rule in my CSS that tells the browser where to download the font file from. The font file is in WOFF2 format, which is compact and works in most modern browsers.</p>
+    
+    <p>Final step, I applied the font to the body element using the font-family property. Now when I load this page, my browser should download the font file and use it to display all the text!</p>
+    
+    <p>Good part is that this font most probably is not on my computer, but I can see it anyway because the browser grabbed it from the internet.</p>
 
-<div id="box">
-    <img id="pic" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.popularmechanics.com%2Fculture%2Fgaming%2Fa31213381%2Frock-paper-scissors-history%2F&psig=AOvVaw1divhTROHjau1wNXwZDkEy&ust=1761021142672000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCNC1r4_5sZADFQAAAAAdAAAAABAE">
-    <p id="text"></p>
-    <div id="buttons"></div>
-</div>
-
-<footer>
-    <p>Last updated: <span id="lastModified"></span></p>
-</footer>
-
-<script>
-    var x = document.lastModified;
-    document.getElementById('lastModified').textContent = x;
-</script>
-
-<script>
-    var current = "start";
-    
-    var story = {
-        start: {text: "A stranger challanges you to rock paper scissors. Choose!", image: "https://cf.geekdo-images.com/opengraph_letterbox/img/YTs34Zy9cHh-65IqbIa3welF7sk=/fit-in/1200x630/filters:fill(auto):strip_icc()/pic47915.jpg", choices: [{text: "Rock", next: "rock"}, {text: "Paper", next: "paper"}, {text: "Scissors", next: "scissors"}]},
-        rock: {text: "You chose rock. ", image: "https://images.pexels.com/photos/442262/pexels-photo-442262.jpeg?cs=srgb", choices: []},
-        paper: {text: "You chose paper. ", image: "https://www.cellmark.com/wp-content/uploads/2019/09/printing-and-writing-papers.jpg", choices: []},
-        scissors: {text: "You chose scissors. ", image: "https://thumbs.dreamstime.com/b/scissors-isolated-18877606.jpg", choices: []},
-        win1: {text: "You win! Stranger gives you gold coin.", image: "https://t4.ftcdn.net/jpg/08/53/28/05/360_F_853280506_uNz4b3kveDOqY8a8LFhVzaLHmvQrEFna.jpg", choices: []},
-        win2: {text: "You win! Stranger gives you silver coin.", image: "https://www.bing.com/ck/a?!&&p=7aa7b0a25b2c389bdd8f85413f581562c36a22cee1ac44fe01d25edf0bc92adaJmltdHM9MTc2MDgzMjAwMA&ptn=3&ver=2&hsh=4&fclid=2573261b-5c10-66d3-3f30-30925dbb67f4&u=a1L2ltYWdlcy9zZWFyY2g_cT1zaWx2ZXIrY29pbitpbWFnZXMmaWQ9QkI1RUU0NTMxOEMzQjFBRTBFOTVFNzY5MkM5NDdDQzk3ODUyNDVDMCZGT1JNPUlRRlJCQQ&ntb=1", choices: []},
-        tie1: {text: "Tie! You shake hands.", image: "https://www.bing.com/ck/a?!&&p=f428ba1bad92b3efd83e067456fceca7b66164c1d6c0b8296d07dac2d05e88f1JmltdHM9MTc2MDgzMjAwMA&ptn=3&ver=2&hsh=4&fclid=2573261b-5c10-66d3-3f30-30925dbb67f4&u=a1L2ltYWdlcy9zZWFyY2g_cT15b3Urc2hha2UraGFuZHMraW1hZ2UmaWQ9NjkzQUY1MzE0NERGOTg2QUJCRjRBN0Q5QTRDMUI2RDA5NzAxNkYxNSZGT1JNPUlRRlJCQQ&ntb=1", choices: []},
-        tie2: {text: "Tie! You both laugh.", image: "https://img.freepik.com/premium-photo/cropped-shot-two-friends-laughing-together_762026-54514.jpg?w=996", choices: []},
-        lose1: {text: "You lose! Stranger walks away.", image: "https://img.freepik.com/premium-photo/lonely-stranger-walking-road-with-hills_889571-108.jpg", choices: []},
-        lose2: {text: "You lose! Stranger gives advise.", image: "https://www.wikihow.com/images/2/2e/Give-Advice-Step-21-Version-2.jpg", choices: []},
-        lose3: {text: "You lose! Stranger gives bronze coin.", image: "https://s3.amazonaws.com/ngccoin-production/us-coin-explorer/1c-1864Lo.jpg", choices: []},
-        lose4: {text: "You lose! Stranger says practice more.", image: "https://www.bing.com/images/search?view=detailV2&ccid=OMnbgk%2bx&id=8EF462CF0695B5D81290B7614BEA432B427CE177&thid=OIP.OMnbgk-x3hs6JjgWthObVgHaJl&mediaurl=https%3a%2f%2fi.pinimg.com%2foriginals%2f73%2f97%2ffd%2f7397fd9b8095f26275ac1edc69b8373c.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.38c9db824fb1de1b3a263816b6139b56%3frik%3dd%252bF8QitD6kthtw%26pid%3dImgRaw%26r%3d0&exph=3300&expw=2551&q=Practice+More+Wallpaper&FORM=IRPRST&ck=8E609FF96C027D0C2A74095BD629AEB2&selectedIndex=2&itb=0", choices: []}
-    };
-    
-    //this is the portion to start game function
-    function startGame() {
-        current = "start";
-        updatePage();
-    }
-    
-    function makeClick(next) {
-        return function() {
-            var comp = ["rock", "paper", "scissors"][Math.floor(Math.random() * 3)];
-            story[next].text = "You chose " + next + ". Computer chose " + comp + ". ";
-            
-            if (next === comp) {
-                current = Math.random() < 0.5 ? "tie1" : "tie2";
-            } else if ((next === "rock" && comp === "scissors") || (next === "paper" && comp === "rock") || (next === "scissors" && comp === "paper")) {
-                current = Math.random() < 0.5 ? "win1" : "win2";
-            } else {
-                var endings = ["lose1", "lose2", "lose3", "lose4"];
-                current = endings[Math.floor(Math.random() * 4)];
-            }
-            updatePage();
-        };
-    }
-    
-    //I built this portion to update the function of the page.
-    function updatePage() {
-        var part = story[current];
-        var btns = document.getElementById("buttons");
-        document.getElementById("text").innerHTML = part.text;
-        document.getElementById("pic").src = part.image;
-        btns.innerHTML = "";
-        
-        if (part.choices.length === 0) {
-            endGame();
-        } else {
-            var i = 0;
-            while (i < part.choices.length) {
-                var b = document.createElement("button");
-                b.innerHTML = part.choices[i].text;
-                b.onclick = makeClick(part.choices[i].next);
-                btns.appendChild(b);
-                i = i + 1;
-            }
-        }
-    }
-    
-    // this is the portion to my end game function
-    function endGame() {
-        var btns = document.getElementById("buttons");
-        btns.innerHTML = "";
-        var restart = document.createElement("button");
-        restart.innerHTML = "Play Again";
-        restart.onclick = function() {
-            startGame();
-        };
-        btns.appendChild(restart);
-    }
-    
-    startGame();
-</script>
-
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+    <script type="text/javascript">
+         var x = document.lastModified;
+         document.getElementById('lastModified').textContent = x;
+    </script>
 </body>
 </html>
+
