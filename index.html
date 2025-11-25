@@ -3,57 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 3 - Custom Fonts</title>
+    <title>T20 Cricket Tournament</title>
     <style>
-        @font-face {
-            font-family: 'Righteous';
-            src: url('https://cdn.jsdelivr.net/npm/@fontsource/righteous@4.5.11/files/righteous-latin-400-normal.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
         body {
-            font-family: 'Righteous', cursive;
-            max-width: 800px;
-            margin: 50px auto;
+            font-family: Arial, sans-serif;
+            display: grid;
+            grid-template-areas:
+                "header header header"
+                "menu content ads"
+                "footer footer footer";
+            grid-template-rows: 80px 1fr 60px;
+            grid-template-columns: 150px 1fr 150px;
+            min-height: 100vh;
+            gap: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+        header {
+            grid-area: header;
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        nav {
+            grid-area: menu;
+            background: #34495e;
             padding: 20px;
-            line-height: 1.8;
-            background-color: #f0f0f0;
+            border-radius: 5px;
         }
-        
-        h1 {
-            color: #ff6b6b;
-            font-size: 2.5em;
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #2c3e50;
+            border-radius: 3px;
+            text-align: center;
         }
-        
-        p {
-            font-size: 1.2em;
-            color: #333;
+        main {
+            grid-area: content;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-y: auto;
+        }
+        aside {
+            grid-area: ads;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        aside a img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        footer {
+            grid-area: footer;
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        #gameArea {
+            text-align: center;
+        }
+        .scoreboard {
+            background: #27ae60;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        .innings-info {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .match-result {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            body {
+                grid-template-areas:
+                    "header"
+                    "menu"
+                    "content"
+                    "ads"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>How I provided this custom font</h1>
+    <header>
+        🏏 T20 Cricket Tournament
+    </header>
     
-    <p>To deliver a custom font into my browser, I used the <strong>@font-face</strong> method in CSS. Here's how it works:</p>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Tournaments</a>
+        <a href="#">Teams</a>
+        <a href="#">Stats</a>
+        <a href="#">About</a>
+    </nav>
     
-    <p>step1, I picked a unique font called "Righteous" from a CDN (Content Delivery Network). Instead of using Google Fonts, I used jsDelivr which hosts font files.</p>
+    <main>
+        <div id="gameArea">
+            <h2>Pakistan vs Australia</h2>
+            
+            <div class="innings-info" id="inningsInfo">
+                First Innings - Pakistan Batting
+            </div>
+            
+            <div class="scoreboard" id="scoreboard">
+                Score: 0/0 | Overs: 0.0/20
+            </div>
+            
+            <button id="batBtn" onclick="playBall()">Play Ball!</button>
+            <button id="resetBtn" onclick="resetGame()">New Match</button>
+            
+            <div id="commentary" style="margin-top: 20px; text-align: left; max-height: 300px; overflow-y: auto;">
+                <h3>Commentary</h3>
+                <p>Click "Play Ball!" to start the match...</p>
+            </div>
+            
+            <div id="result"></div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: left; font-size: 14px; color: #666;">
+            <h3>Addendum</h3>
+            <p><strong>Problem:</strong> Create an interactive T20 cricket match simulator.</p>
+            <p><strong>Solution:</strong> Used JavaScript to simulate random cricket outcomes (runs, wickets) with each ball bowled. Implemented game state tracking for scores, overs, wickets, and innings transitions. The game progresses through 20 overs per team and declares a winner.</p>
+            <p><strong>Difficulties:</strong> Managing game state transitions between innings and properly calculating over progression (6 balls = 1 over). Solved by creating separate state variables and modular functions for each game action.</p>
+        </div>
+    </main>
     
-    <p>step2, I added a @font-face rule in my CSS that tells the browser where to download the font file from. The font file is in WOFF2 format, which is compact and works in most modern browsers.</p>
+    <aside>
+        <a href="https://www.amazon.com/cricket-bat/s?k=cricket+bat" target="_blank">
+            <img src="https://m.media-amazon.com/images/I/71qEqU+WUPL._AC_SL1500_.jpg" alt="Cricket Bat">
+        </a>
+    </aside>
     
-    <p>Final step, I applied the font to the body element using the font-family property. Now when I load this page, my browser should download the font file and use it to display all the text!</p>
-    
-    <p>Good part is that this font most probably is not on my computer, but I can see it anyway because the browser grabbed it from the internet.</p>
-
     <footer>
         <p>Last updated: 
             <span id="lastModified"></span>
         </p>
     </footer>
+    
+    <script src="game.js"></script>
     <script type="text/javascript">
          var x = document.lastModified;
          document.getElementById('lastModified').textContent = x;
     </script>
 </body>
 </html>
-
