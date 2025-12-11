@@ -3,200 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T20 Cricket Tournament</title>
+    <title>Lights Out Game</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Import a custom font from cdnjs (not Google Fonts) */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+        
         body {
-            font-family: Arial, sans-serif;
-            display: grid;
-            grid-template-areas:
-                "header header header"
-                "menu content ads"
-                "footer footer footer";
-            grid-template-rows: 80px 1fr 60px;
-            grid-template-columns: 150px 1fr 150px;
-            min-height: 100vh;
-            gap: 10px;
-            padding: 10px;
-            background: #f0f0f0;
-        }
-        header {
-            grid-area: header;
-            background: #2c3e50;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-        nav {
-            grid-area: menu;
-            background: #34495e;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background-color: #e8f5e9;
+            color: #1b5e20;
             padding: 20px;
-            border-radius: 5px;
         }
-        nav a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
+        
+        h1 {
+            color: #2e7d32;
+            font-size: 2.5em;
             margin-bottom: 10px;
-            background: #2c3e50;
-            border-radius: 3px;
-            text-align: center;
         }
-        main {
-            grid-area: content;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            overflow-y: auto;
-        }
-        aside {
-            grid-area: ads;
-            background: #ecf0f1;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        aside a img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        footer {
-            grid-area: footer;
-            background: #2c3e50;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            padding: 10px;
-        }
-        #gameArea {
-            text-align: center;
-        }
-        .scoreboard {
-            background: #27ae60;
-            color: white;
+        
+        #instructions {
+            max-width: 600px;
+            margin: 20px auto;
             padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 18px;
+            background-color: #c8e6c9;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(46, 125, 50, 0.2);
         }
+        
+        #game-board {
+            display: inline-grid;
+            grid-template-columns: repeat(5, 80px);
+            grid-gap: 5px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #66bb6a;
+            border-radius: 15px;
+        }
+        
+        .square {
+            width: 80px;
+            height: 80px;
+            background-color: #81c784;
+            border: 3px solid #a5d6a7;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        
+        /* This class makes a square "off" (dark) */
+        .is-off {
+            background-color: #1b5e20;
+        }
+        
+        .square:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(129, 199, 132, 0.8);
+        }
+        
         button {
-            background: #3498db;
+            font-family: 'Courier New', monospace;
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #43a047;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: bold;
             margin: 10px;
         }
+        
         button:hover {
-            background: #2980b9;
+            background-color: #388e3c;
+            transform: scale(1.05);
         }
-        button:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-        }
-        .innings-info {
-            background: #e74c3c;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .match-result {
-            background: #f39c12;
-            color: white;
-            padding: 20px;
-            border-radius: 5px;
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        @media (max-width: 768px) {
-            body {
-                grid-template-areas:
-                    "header"
-                    "menu"
-                    "content"
-                    "ads"
-                    "footer";
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #66bb6a;
+            color: #2e7d32;
         }
     </style>
 </head>
 <body>
-    <header>
-        🏏 T20 Cricket Tournament
-    </header>
+    <h1>🔦 Lights Out Game 🔦</h1>
     
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Tournaments</a>
-        <a href="#">Teams</a>
-        <a href="#">Stats</a>
-        <a href="#">About</a>
-    </nav>
+    <div id="instructions">
+        <h3>How to Play:</h3>
+        <p>Click on any square to toggle it and its neighbors (up, down, left, right).</p>
+        <p>Goal: Turn all squares dark to win!</p>
+    </div>
     
-    <main>
-        <div id="gameArea">
-            <h2>Pakistan vs Australia</h2>
-            
-            <div class="innings-info" id="inningsInfo">
-                First Innings - Pakistan Batting
-            </div>
-            
-            <div class="scoreboard" id="scoreboard">
-                Score: 0/0 | Overs: 0.0/20
-            </div>
-            
-            <button id="batBtn" onclick="playBall()">Play Ball!</button>
-            <button id="resetBtn" onclick="resetGame()">New Match</button>
-            
-            <div id="commentary" style="margin-top: 20px; text-align: left; max-height: 300px; overflow-y: auto;">
-                <h3>Commentary</h3>
-                <p>Click "Play Ball!" to start the match...</p>
-            </div>
-            
-            <div id="result"></div>
-        </div>
-        
-        <div style="margin-top: 30px; text-align: left; font-size: 14px; color: #666;">
-            <h3>Addendum</h3>
-            <p><strong>Problem:</strong> Create an interactive T20 cricket match simulator.</p>
-            <p><strong>Solution:</strong> Used JavaScript to simulate random cricket outcomes (runs, wickets) with each ball bowled. Implemented game state tracking for scores, overs, wickets, and innings transitions. The game progresses through 20 overs per team and declares a winner.</p>
-            <p><strong>Difficulties:</strong> Managing game state transitions between innings and properly calculating over progression (6 balls = 1 over). Solved by creating separate state variables and modular functions for each game action.</p>
-        </div>
-    </main>
+    <button onclick="startNewGame()">New Game</button>
     
-    <aside>
-        <a href="https://www.amazon.com/cricket-bat/s?k=cricket+bat" target="_blank">
-            <img src="https://m.media-amazon.com/images/I/71qEqU+WUPL._AC_SL1500_.jpg" alt="Cricket Bat">
-        </a>
-    </aside>
-    
+    <div id="game-board"></div>
+
     <footer>
         <p>Last updated: 
             <span id="lastModified"></span>
         </p>
     </footer>
     
-    <script src="game.js"></script>
-    <script type="text/javascript">
-         var x = document.lastModified;
-         document.getElementById('lastModified').textContent = x;
+    <script>
+        // Game settings
+        const BOARD_SIZE = 5; // 5x5 grid
+        let board = []; // This will store our squares
+        
+        // Create the game board when page loads
+        function createBoard() {
+            const gameBoard = document.getElementById('game-board');
+            gameBoard.innerHTML = ''; // Clear any existing board
+            board = []; // Reset board array
+            
+            // Create 5x5 grid (25 squares total)
+            for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; i++) {
+                const square = document.createElement('div');
+                square.className = 'square';
+                square.onclick = function() { toggleSquare(i); };
+                gameBoard.appendChild(square);
+                board.push(square);
+            }
+        }
+        
+        // Toggle a square and its neighbors
+        function toggleSquare(index) {
+            const row = Math.floor(index / BOARD_SIZE);
+            const col = index % BOARD_SIZE;
+            
+            // Toggle the clicked square
+            flipSquare(index);
+            
+            // Toggle neighbor above (if exists)
+            if (row > 0) {
+                flipSquare(index - BOARD_SIZE);
+            }
+            
+            // Toggle neighbor below (if exists)
+            if (row < BOARD_SIZE - 1) {
+                flipSquare(index + BOARD_SIZE);
+            }
+            
+            // Toggle neighbor left (if exists)
+            if (col > 0) {
+                flipSquare(index - 1);
+            }
+            
+            // Toggle neighbor right (if exists)
+            if (col < BOARD_SIZE - 1) {
+                flipSquare(index + 1);
+            }
+            
+            // Check if player won
+            checkWin();
+        }
+        
+        // Flip a single square on/off
+        function flipSquare(index) {
+            board[index].classList.toggle('is-off');
+        }
+        
+        // Check if all squares are off (dark)
+        function checkWin() {
+            const allOff = board.every(square => square.classList.contains('is-off'));
+            
+            if (allOff) {
+                setTimeout(() => {
+                    alert('You win! 🎉');
+                }, 100);
+            }
+        }
+        
+        // Start a new random game
+        function startNewGame() {
+            createBoard();
+            
+            // Make random moves to scramble the board
+            // This ensures the game is always solvable!
+            const numMoves = 10 + Math.floor(Math.random() * 10); // 10-19 random moves
+            
+            for (let i = 0; i < numMoves; i++) {
+                const randomIndex = Math.floor(Math.random() * (BOARD_SIZE * BOARD_SIZE));
+                toggleSquare(randomIndex);
+            }
+        }
+        
+        // Start the first game when page loads
+        startNewGame();
+        
+        // Update footer timestamp
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
     </script>
 </body>
 </html>
+
